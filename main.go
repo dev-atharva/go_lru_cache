@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
 )
 
 const size = 5
@@ -107,8 +110,18 @@ func (q *Queue) Display() {
 func main() {
 	fmt.Println("Start cache")
 	cache := NewCache()
-	for _, word := range []string{"hari", "om", "shree", "ram", "jay", "shreeram", "ram"} {
-		cache.Check(word)
+
+	for {
+		fmt.Print("Enter a word (or 'exit' to quit): ")
+		scanner := bufio.NewScanner(os.Stdin)
+		scanner.Scan()
+		input := scanner.Text()
+
+		if strings.ToLower(input) == "exit" {
+			break
+		}
+
+		cache.Check(input)
 		cache.Display()
 	}
 }
